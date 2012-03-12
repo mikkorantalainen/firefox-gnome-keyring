@@ -14,8 +14,18 @@ XUL_PKG_NAME     = $(shell (pkg-config --atleast-version=2 libxul && echo libxul
 
 # compilation flags
 
+# For ubuntu 10.04 LTS:
+# Install package "thunderbird" version 10.0.2 from
+# "https://launchpad.net/~mozillateam/+archive/thunderbird-stable"
+# and build with
+# "LD_LIBRARY_PATH=/usr/lib/thunderbird-10.0.2 make" instead of plain "make"
+#
+XUL_CFLAGS := -fshort-wchar -I/usr/include/thunderbird-10.0.2
+XUL_LDFLAGS :=  -L/usr/lib/thunderbird-10.0.2 -L/usr/lib/thunderbird-devel-10.0.2/sdk/lib -lxpcomglue_s -lxul -lxpcom -lplds4 -lplc4 -lnspr4 -lpthread -ldl 
+XUL_LIBRARY_PATH := /usr/lib/thunderbird-10.0.2:/usr/lib/thunderbird-devel-10.0.2/sdk/lib
+
 # if pkgconfig file for libxul is available, use it
-ifdef XUL_PKG_NAME
+ifneq ($(XUL_PKG_NAME),)
 XUL_CFLAGS       := `pkg-config --cflags $(XUL_PKG_NAME)`
 XUL_LDFLAGS      := `pkg-config --libs $(XUL_PKG_NAME)`
 XUL_LIBRARY_PATH := `pkg-config --libs-only-L $(XUL_PKG_NAME) | sed -e 's/-L\(\S*\).*/\1/'`

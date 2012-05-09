@@ -2,7 +2,7 @@ PACKAGE          ?= mozilla-gnome-keyring
 VERSION          ?= $(shell git describe --tags 2>/dev/null || date +dev-%s)
 # max/min compatibility versions to set, only if "xulrunner" tool is not available
 XUL_VER_MIN      ?= 10.0.1
-XUL_VER_MAX      ?= 11.*
+XUL_VER_MAX      ?= 12.*
 # package distribution variables
 FULLNAME         ?= $(PACKAGE)-$(VERSION)
 ARCHIVENAME      ?= $(FULLNAME)
@@ -15,14 +15,14 @@ XUL_PKG_NAME     = $(shell (pkg-config --atleast-version=2 libxul && echo libxul
 # compilation flags
 
 # For ubuntu 10.04 LTS:
-# Install package "thunderbird" version 11.0 from
+# Install package "thunderbird" version 12.0 from
 # "https://launchpad.net/~mozillateam/+archive/thunderbird-stable"
 # and build with
-# "LD_LIBRARY_PATH=/usr/lib/thunderbird-11.0 make" instead of plain "make"
+# "LD_LIBRARY_PATH=/usr/lib/thunderbird make" instead of plain "make"
 #
-XUL_CFLAGS := -fshort-wchar -I/usr/include/thunderbird-11.0
-XUL_LDFLAGS :=  -L/usr/lib/thunderbird-11.0 -L/usr/lib/thunderbird-devel-11.0/sdk/lib -lxpcomglue_s -lxul -lxpcom -lplds4 -lplc4 -lnspr4 -lpthread -ldl 
-XUL_LIBRARY_PATH := /usr/lib/thunderbird-11.0:/usr/lib/thunderbird-devel-11.0/sdk/lib
+XUL_CFLAGS := -fshort-wchar -I/usr/include/thunderbird
+XUL_LDFLAGS :=  -L/usr/lib/thunderbird -L/usr/lib/thunderbird-devel/sdk/lib -lxpcomglue_s -lxul -lxpcom -lplds4 -lplc4 -lnspr4 -lpthread -ldl 
+XUL_LIBRARY_PATH := /usr/lib/thunderbird:/usr/lib/thunderbird-devel/sdk/lib
 
 # if pkgconfig file for libxul is available, use it
 ifneq ($(XUL_PKG_NAME),)

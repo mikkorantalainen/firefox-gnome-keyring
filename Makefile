@@ -41,7 +41,8 @@ XUL_VERSION      = $(shell echo '\#include "mozilla-config.h"'| \
                      sed -n -e 's/\#[[:space:]]*define[[:space:]]\+MOZILLA_VERSION[[:space:]]\+\"\(.*\)\"/\1/gp')
 
 # construct Mozilla architectures string
-PLATFORM         ?= $(shell make -s get_abi PLATFORM=unknown || echo unknown)
+#PLATFORM         ?= $(shell make -s get_abi PLATFORM=unknown || echo unknown)
+PLATFORM         ?= Linux_x86_64-gcc3
 
 TARGET           := libgnomekeyring.so
 XPI_TARGET       := $(FULLNAME).xpi
